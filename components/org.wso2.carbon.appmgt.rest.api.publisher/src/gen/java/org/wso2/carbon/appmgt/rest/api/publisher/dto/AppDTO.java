@@ -64,9 +64,6 @@ public class AppDTO  {
   
   
   private String trackingCode = null;
-  
-  
-  private String skipGateway = null;
 
 
   private Boolean serviceProviderCreationEnabled = null;
@@ -88,10 +85,7 @@ public class AppDTO  {
   
   
   private String transport = null;
-  
-  
-  private List<String> tags = new ArrayList<String>();
-  
+
   
   private String thumbnailUrl = null;
   
@@ -363,18 +357,6 @@ public class AppDTO  {
     this.trackingCode = trackingCode;
   }
 
-  
-  /**
-   **/
-  @ApiModelProperty(value = "")
-  @JsonProperty("skipGateway")
-  public String getSkipGateway() {
-    return skipGateway;
-  }
-  public void setSkipGateway(String skipGateway) {
-    this.skipGateway = skipGateway;
-  }
-
   /**
    **/
   @ApiModelProperty(value = "")
@@ -460,19 +442,6 @@ public class AppDTO  {
   public void setTransport(String transport) {
     this.transport = transport;
   }
-
-  
-  /**
-   **/
-  @ApiModelProperty(value = "")
-  @JsonProperty("tags")
-  public List<String> getTags() {
-    return tags;
-  }
-  public void setTags(List<String> tags) {
-    this.tags = tags;
-  }
-
   
   /**
    **/
@@ -754,14 +723,12 @@ public class AppDTO  {
     sb.append("  visibleTenants: ").append(visibleTenants).append("\n");
     sb.append("  claims: ").append(claims).append("\n");
     sb.append("  trackingCode: ").append(trackingCode).append("\n");
-    sb.append("  skipGateway: ").append(skipGateway).append("\n");
     sb.append("  allowAnonymousAccess: ").append(allowAnonymousAccess).append("\n");
     sb.append("  acsUrl: ").append(acsUrl).append("\n");
     sb.append("  provider: ").append(provider).append("\n");
     sb.append("  appDefinition: ").append(appDefinition).append("\n");
     sb.append("  isDefaultVersion: ").append(isDefaultVersion).append("\n");
     sb.append("  transport: ").append(transport).append("\n");
-    sb.append("  tags: ").append(tags).append("\n");
     sb.append("  thumbnailUrl: ").append(thumbnailUrl).append("\n");
     sb.append("  visibleRoles: ").append(visibleRoles).append("\n");
     sb.append("  path: ").append(path).append("\n");

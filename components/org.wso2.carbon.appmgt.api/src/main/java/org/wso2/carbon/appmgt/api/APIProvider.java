@@ -79,16 +79,6 @@ public interface APIProvider extends APIManager {
     public void updateMobileApp(MobileApp mobileApp) throws AppManagementException;
 
     /**
-     * Change the lifecycle state of the specified WebApp
-     *
-     * @param api The WebApp whose status to be updated
-     * @param status New status of the WebApp
-     * @param userId User performing the WebApp state change
-     * @param updateGatewayConfig Whether the changes should be pushed to the WebApp gateway or not
-     * @throws AppManagementException on error
-     */
-
-    /**
      * Returns details of a Mobile App
      * @param uuid  uuid of the App
      * @return A MobileApp object related ro given identifier or null

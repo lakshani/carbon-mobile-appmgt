@@ -37,7 +37,6 @@ import org.wso2.carbon.appmgt.api.model.OneTimeDownloadLink;
 import org.wso2.carbon.appmgt.api.model.Provider;
 import org.wso2.carbon.appmgt.api.model.Tier;
 import org.wso2.carbon.appmgt.api.model.Usage;
-import org.wso2.carbon.appmgt.impl.dto.Environment;
 import org.wso2.carbon.appmgt.impl.dto.TierPermissionDTO;
 import org.wso2.carbon.appmgt.impl.service.ServiceReferenceHolder;
 import org.wso2.carbon.appmgt.impl.utils.AppManagerUtil;
@@ -246,12 +245,6 @@ class APIProviderImpl extends AbstractAPIManager implements APIProvider {
             artifactId = artifact.getId();
             changeLifeCycleStatus(AppMConstants.MOBILE_ASSET_TYPE, artifactId, APPLifecycleActions.CREATE.getStatus());
             String artifactPath = GovernanceUtils.getArtifactPath(registry, artifact.getId());
-            Set<String> tagSet = mobileApp.getTags();
-            if (tagSet != null) {
-                for (String tag : tagSet) {
-                    registry.applyTag(artifactPath, tag);
-                }
-            }
 
             if(mobileApp.getAppVisibility() != null) {
                 AppManagerUtil.setResourcePermissions(mobileApp.getAppProvider(),
@@ -555,14 +548,10 @@ class APIProviderImpl extends AbstractAPIManager implements APIProvider {
             if (AppMConstants.LifecycleActions.SUBMIT_FOR_REVIEW.equals(lifecycleAction)) {
                 if (AppMConstants.MOBILE_ASSET_TYPE.equals(appType)) {
                     requiredPermission = AppMConstants.Permissions.MOBILE_APP_CREATE;
-                } else if (AppMConstants.WEBAPP_ASSET_TYPE.equals(appType)) {
-                    requiredPermission = AppMConstants.Permissions.WEB_APP_CREATE;
                 }
             } else {
                 if (AppMConstants.MOBILE_ASSET_TYPE.equals(appType)) {
                     requiredPermission = AppMConstants.Permissions.MOBILE_APP_PUBLISH;
-                } else if (AppMConstants.WEBAPP_ASSET_TYPE.equals(appType)) {
-                    requiredPermission = AppMConstants.Permissions.WEB_APP_PUBLISH;
                 }
             }
 
@@ -894,14 +883,6 @@ class APIProviderImpl extends AbstractAPIManager implements APIProvider {
      */
     public void updateOneTimeDownloadLinkStatus(OneTimeDownloadLink oneTimeDownloadLink) throws AppManagementException{
         appRepository.updateOneTimeDownloadLinkStatus(oneTimeDownloadLink);
-    }
-
-    public String getGatewayEndpoint() {
-        Environment gatewayEnvironment = ServiceReferenceHolder.getInstance().getAPIManagerConfigurationService().
-                getAPIManagerConfiguration().getApiGatewayEnvironments().get(0);
-
-        String gatewayUrl = gatewayEnvironment.getApiGatewayEndpoint().split(",")[0];
-        return gatewayUrl;
     }
 
     public String uploadImage(FileContent fileContent) throws AppManagementException {

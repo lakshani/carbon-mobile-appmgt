@@ -39,10 +39,8 @@ import org.wso2.carbon.utils.multitenancy.MultitenantConstants;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class APPMappingUtil {
 
@@ -236,12 +234,6 @@ public class APPMappingUtil {
         dto.setDescription(mobileApp.getDescription());
         dto.setRating(BigDecimal.valueOf(mobileApp.getRating()));
 
-        Set<String> apiTags = mobileApp.getTags();
-        List<String> tagsToReturn = new ArrayList<>();
-        tagsToReturn.addAll(apiTags);
-        dto.setTags(tagsToReturn);
-
-
         dto.setType(mobileApp.getType());
         dto.setMarketType(mobileApp.getMarketType());
         dto.setBundleversion(mobileApp.getBundleVersion());
@@ -350,12 +342,7 @@ public class APPMappingUtil {
         }
         mobileAppModel.setScreenShots(appDTO.getScreenshots());
         mobileAppModel.setRecentChanges(appDTO.getRecentChanges());
-        //mobileAppModel.setPreviousVersionAppID(appDTO.getPreviousVersionAppID());
 
-        if (appDTO.getTags() != null) {
-            Set<String> apiTags = new HashSet<>(appDTO.getTags());
-            mobileAppModel.addTags(apiTags);
-        }
         List<String> visibleRoleList = new ArrayList<String>();
         visibleRoleList = appDTO.getVisibleRoles();
         if (visibleRoleList != null) {

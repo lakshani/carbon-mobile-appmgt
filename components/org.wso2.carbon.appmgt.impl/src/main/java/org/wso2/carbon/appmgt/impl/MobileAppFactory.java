@@ -19,14 +19,17 @@
 package org.wso2.carbon.appmgt.impl;
 
 import org.wso2.carbon.appmgt.api.AppManagementException;
-import org.wso2.carbon.appmgt.api.model.*;
+import org.wso2.carbon.appmgt.api.model.APIStatus;
+import org.wso2.carbon.appmgt.api.model.App;
+import org.wso2.carbon.appmgt.api.model.MobileApp;
 import org.wso2.carbon.governance.api.exception.GovernanceException;
 import org.wso2.carbon.governance.api.generic.dataobjects.GenericArtifact;
-import org.wso2.carbon.governance.api.util.GovernanceUtils;
-import org.wso2.carbon.registry.core.*;
+import org.wso2.carbon.registry.core.Registry;
 import org.wso2.carbon.registry.core.exceptions.RegistryException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Factory class to create mobile apps.
@@ -47,14 +50,6 @@ public class MobileAppFactory extends AppFactory {
             mobileApp.setAppProvider(artifact.getAttribute(AppMConstants.MOBILE_APP_OVERVIEW_PROVIDER));
             mobileApp.setVersion(artifact.getAttribute(AppMConstants.MOBILE_APP_OVERVIEW_VERSION));
             mobileApp.setDescription(artifact.getAttribute(AppMConstants.API_OVERVIEW_DESCRIPTION));
-
-            String artifactPath = GovernanceUtils.getArtifactPath(registry, artifact.getId());
-            Set<String> tags = new HashSet<String>();
-            org.wso2.carbon.registry.core.Tag[] tag = registry.getTags(artifactPath);
-            for (org.wso2.carbon.registry.core.Tag tag1 : tag) {
-                tags.add(tag1.getTagName());
-            }
-            mobileApp.addTags(tags);
 
             //Set Lifecycle status
             if (artifact.getLifecycleState() != null && artifact.getLifecycleState() != "") {

@@ -17,7 +17,6 @@
 package org.wso2.carbon.appmgt.impl;
 
 import org.wso2.carbon.appmgt.api.AppManagementException;
-import org.wso2.carbon.appmgt.impl.utils.AppManagerUtil;
 
 /**
  * User aware APIConsumer implementation which ensures that the invoking user has the
@@ -40,9 +39,5 @@ public class UserAwareAPIConsumer extends APIConsumerImpl {
     UserAwareAPIConsumer(String username) throws AppManagementException {
         super(username);
         this.username = username;
-    }
-
-    public void checkSubscribePermission() throws AppManagementException {
-        AppManagerUtil.checkPermission(username, AppMConstants.Permissions.WEB_APP_SUBSCRIBE);
     }
 }

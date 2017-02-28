@@ -28,9 +28,7 @@ import org.wso2.carbon.appmgt.rest.api.publisher.dto.AppDTO;
 import org.wso2.carbon.appmgt.rest.api.util.utils.RestApiUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * This class is dedicated to validate AppDTO against the given application type
@@ -105,9 +103,6 @@ public class AppDTOValidator {
             screenShots.add("");
         }
 
-        if (appDTO.getTags() != null) {
-            Set<String> apiTags = new HashSet<>(appDTO.getTags());
-        }
         List<String> visibleRoleList = new ArrayList<String>();
         visibleRoleList = appDTO.getVisibleRoles();
         if (visibleRoleList != null) {

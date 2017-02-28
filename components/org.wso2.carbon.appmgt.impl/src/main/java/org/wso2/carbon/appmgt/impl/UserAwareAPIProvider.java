@@ -40,12 +40,4 @@ public class UserAwareAPIProvider extends APIProviderImpl {
     public void checkManageTiersPermission() throws AppManagementException {
         AppManagerUtil.checkPermission(username, AppMConstants.Permissions.MANAGE_TIERS);
     }
-
-    public void checkPublishPermission() throws AppManagementException {
-        AppManagerUtil.checkPermission(username, AppMConstants.Permissions.WEB_APP_PUBLISH);
-    }
-
-    public void checkPublishPermissionTenantMode(String userId) throws AppManagementException {
-        AppManagerUtil.checkPermission(userId, AppMConstants.Permissions.WEB_APP_PUBLISH);
-    }
 }

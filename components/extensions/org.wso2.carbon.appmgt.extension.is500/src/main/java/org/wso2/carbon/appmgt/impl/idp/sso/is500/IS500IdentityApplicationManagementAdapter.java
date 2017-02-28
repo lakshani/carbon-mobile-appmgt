@@ -100,38 +100,6 @@ public class IS500IdentityApplicationManagementAdapter implements IdentityApplic
     }
 
     @Override
-    public boolean createProvider(WebApp webApp, String idpName, String authenticationStep, String gatewayUrl) {
-        String acsUrl = webApp.getAcsURL().trim();
-        SSOProvider ssoProvider = webApp.getSsoProviderDetails();
-        boolean status = false;
-        if (ssoProvider == null) {
-            log.warn("No SSO Configurator details given. Manual setup of SSO Provider required.");
-        } else {
-            if (acsUrl != null && acsUrl.length() > 0) {
-                ssoProvider.setAssertionConsumerURL(acsUrl);
-            } else {
-                ssoProvider.setAssertionConsumerURL(gatewayUrl);
-            }
-
-            ServiceProvider serviceProvider;
-            SAMLSSOServiceProviderDTO serviceProviderDTO = generateDTO(ssoProvider);
-            try {
-                status = ssoStub.addRPServiceProvider(serviceProviderDTO);
-                String attributeConsumingServiceIndex = getServiceProvider(ssoProvider.getIssuerName()).getAttributeConsumingServiceIndex();
-                serviceProvider = generateSPCreate(ssoProvider);
-                appMgtStub.createApplication(serviceProvider);
-                serviceProvider = appMgtStub.getApplication(serviceProvider.getApplicationName());
-                serviceProvider = generateSPUpdate(ssoProvider, serviceProvider, attributeConsumingServiceIndex,
-                        idpName, authenticationStep);
-                appMgtStub.updateApplication(serviceProvider);
-            } catch (Exception e) {
-                log.error("Error adding a new Service Provider", e);
-            }
-        }
-        return status;
-    }
-
-    @Override
     public boolean removeProvider(SSOProvider provider) {
         boolean status = false;
         try {
@@ -142,49 +110,6 @@ public class IS500IdentityApplicationManagementAdapter implements IdentityApplic
         }
 
         return status;
-    }
-
-    @Override
-    public boolean updateProvider(WebApp application, String idpName, String authenticationStep, String gatewayUrl) {
-        String acsUrl = application.getAcsURL().trim();
-        SSOProvider ssoProvider = application.getSsoProviderDetails();
-        boolean isUpdated = false;
-
-        if (ssoProvider == null) {
-            log.warn("No SSO Configurator details given. Manual setup of SSO Provider required.");
-        } else {
-            if (acsUrl != null && acsUrl.length() > 0) {
-                ssoProvider.setAssertionConsumerURL(acsUrl);
-            } else {
-                ssoProvider.setAssertionConsumerURL(gatewayUrl);
-            }
-            SAMLSSOServiceProviderDTO serviceProviderDTO = generateDTO(ssoProvider);
-            ServiceProvider serviceProvider = null;
-            try {
-                serviceProvider = appMgtStub.getApplication(ssoProvider.getIssuerName());
-                if (serviceProvider != null) {
-                    ssoStub.removeServiceProvider(ssoProvider.getIssuerName());
-                    ssoStub.addRPServiceProvider(serviceProviderDTO);
-                    updateServiceProvider(ssoProvider, serviceProvider);
-                    appMgtStub.updateApplication(serviceProvider);
-                    isUpdated = true;
-                } else {
-                    createProvider(ssoProvider, idpName, authenticationStep);
-                }
-            } catch (RemoteException e) {
-                //An exception is not thrown here in the purpose of continuing in rest of webapp update
-                log.error("Error occurred in invoking remote service while updating service provider : " +
-                        ssoProvider.getProviderName(), e);
-            } catch (IdentityApplicationManagementServiceIdentityApplicationManagementException e) {
-                //An exception is not thrown here in the purpose of continuing in rest of webapp update
-                log.error("Error in invoking IdentityApplicationManagementService while updating the provider : " +
-                        ssoProvider.getProviderName(), e);
-            } catch (IdentitySAMLSSOConfigServiceIdentityException e) {
-                log.error("Error occurred in invoking IdentitySAMLSSOConfigService while updating provider : " +
-                        ssoProvider.getIssuerName(), e);
-            }
-        }
-        return isUpdated;
     }
 
     @Override

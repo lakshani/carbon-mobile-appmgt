@@ -65,8 +65,6 @@ public class AppMDAO {
             "AppConsumerAuthConfiguration.EnableTokenGeneration";
     private static final String ENABLE_JWT_CACHE = "APIKeyManager.EnableJWTCache";
 
-    private static final String GATEWAY_URL = "APIGateway.Environments.Environment.GatewayEndpoint";
-
     // Primary/Secondary Login configuration
     private static final String USERID_LOGIN = "UserIdLogin";
     private static final String EMAIL_LOGIN = "EmailLogin";

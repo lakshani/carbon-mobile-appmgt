@@ -190,8 +190,8 @@ public class APIProviderHostObject extends ScriptableObject {
             }
 
             boolean   authorized =
-                    AppManagerUtil.checkPermissionQuietly(usernameWithDomain, AppMConstants.Permissions.WEB_APP_CREATE) ||
-                            AppManagerUtil.checkPermissionQuietly(usernameWithDomain, AppMConstants.Permissions.WEB_APP_PUBLISH);
+                    AppManagerUtil.checkPermissionQuietly(usernameWithDomain, AppMConstants.Permissions.MOBILE_APP_CREATE) ||
+                            AppManagerUtil.checkPermissionQuietly(usernameWithDomain, AppMConstants.Permissions.MOBILE_APP_PUBLISH);
 
 
             if (authorized) {
@@ -492,33 +492,6 @@ public class APIProviderHostObject extends ScriptableObject {
         if (provider instanceof UserAwareAPIProvider) {
             try {
                 ((UserAwareAPIProvider) provider).checkManageTiersPermission();
-                return true;
-            } catch (AppManagementException e) {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    public static boolean jsFunction_hasUserPermissions(Context cx, Scriptable thisObj,
-                                                        Object[] args,
-                                                        Function funObj)
-            throws AppManagementException {
-        if (args == null || !isStringValues(args)) {
-            handleException("Invalid input parameters.");
-        }
-        String username = (String) args[0];
-        return AppManagerUtil.checkPermissionQuietly(username, AppMConstants.Permissions.WEB_APP_CREATE) ||
-                AppManagerUtil.checkPermissionQuietly(username, AppMConstants.Permissions.WEB_APP_PUBLISH);
-    }
-
-    public static boolean jsFunction_hasPublishPermission(Context cx, Scriptable thisObj,
-                                                          Object[] args,
-                                                          Function funObj) {
-        APIProvider provider = getAPIProvider(thisObj);
-        if (provider instanceof UserAwareAPIProvider) {
-            try {
-                ((UserAwareAPIProvider) provider).checkPublishPermission();
                 return true;
             } catch (AppManagementException e) {
                 return false;
@@ -963,20 +936,6 @@ public class APIProviderHostObject extends ScriptableObject {
     public static String jsFunction_getBinaryFileStorage(Context cx, Scriptable thisObj, Object[] args,
                                                          Function funObj) throws AppManagementException {
         return HostObjectUtils.getBinaryStorageConfiguration();
-    }
-
-    /**
-     * Is Service Provider Create is enabled for skip gateway apps
-     * @param cx
-     * @param thisObj
-     * @param args
-     * @param funObj
-     * @return
-     * @throws AppManagementException
-     */
-    public static boolean jsFunction_isSPCreateEnabledForSkipGatewayApps(Context cx, Scriptable thisObj, Object[] args,
-                                                                         Function funObj) throws AppManagementException{
-        return HostObjectUtils.isServiceProviderCreateEnabledForSkipGatewayApp();
     }
 
     /**

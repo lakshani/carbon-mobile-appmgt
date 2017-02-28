@@ -17,10 +17,7 @@
 */
 package org.wso2.carbon.appmgt.api.model;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * This class is used to store and process mobile application details
@@ -53,20 +50,6 @@ public class MobileApp extends App{
 
     public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
-    }
-
-    private Set<String> tags = new LinkedHashSet<String>();
-
-    public Set<String> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    public void addTags(Set<String> tags) {
-        this.tags.addAll(tags);
-    }
-
-    public void removeTags(Set<String> tags) {
-        this.tags.removeAll(tags);
     }
 
     public String getVersion() {

@@ -36,7 +36,6 @@ import org.wso2.carbon.appmgt.impl.AppManagerConfigurationServiceImpl;
 import org.wso2.carbon.appmgt.impl.config.TenantConfiguration;
 import org.wso2.carbon.appmgt.impl.config.TenantConfigurationLoader;
 import org.wso2.carbon.appmgt.impl.idp.sso.configurator.IS510IdentityApplicationManagementFactory;
-import org.wso2.carbon.appmgt.impl.listners.UserAddListener;
 import org.wso2.carbon.appmgt.impl.observers.SignupObserver;
 import org.wso2.carbon.appmgt.impl.service.ServiceReferenceHolder;
 import org.wso2.carbon.appmgt.impl.service.TenantConfigurationService;
@@ -64,9 +63,6 @@ import org.wso2.carbon.registry.indexing.service.TenantIndexingLoader;
 import org.wso2.carbon.user.api.AuthorizationManager;
 import org.wso2.carbon.user.api.Permission;
 import org.wso2.carbon.user.api.UserStoreException;
-import org.wso2.carbon.user.api.UserStoreManager;
-import org.wso2.carbon.user.core.UserRealm;
-import org.wso2.carbon.user.core.listener.UserStoreManagerListener;
 import org.wso2.carbon.user.core.service.RealmService;
 import org.wso2.carbon.user.mgt.UserMgtConstants;
 import org.wso2.carbon.utils.Axis2ConfigurationContextObserver;
@@ -165,13 +161,6 @@ public class AppManagerComponent {
 
             componentContext.getBundleContext().registerService(TenantConfigurationService.class, tenantConfigurationService, null);
 
-            AuthorizationUtils.addAuthorizeRoleListener(AppMConstants.AM_CREATOR_APIMGT_EXECUTION_ID,
-                                                        RegistryUtils.getAbsolutePath(RegistryContext.getBaseInstance(),
-                                                                RegistryConstants.GOVERNANCE_REGISTRY_BASE_PATH
-                                                                        + AppMConstants.APPMGT_APPLICATION_DATA_LOCATION),
-                                                        AppMConstants.Permissions.WEB_APP_CREATE,
-                                                        UserMgtConstants.EXECUTE_ACTION, null);
-
             AuthorizationUtils.addAuthorizeRoleListener(AppMConstants.AM_MOBILE_CREATOR_APIMGT_EXECUTION_ID,
                                                         RegistryUtils.getAbsolutePath(RegistryContext.getBaseInstance(),
                                                                                       RegistryConstants.GOVERNANCE_REGISTRY_BASE_PATH +
@@ -184,30 +173,16 @@ public class AppManagerComponent {
 
             Permission[] creatorPermissions = new Permission[]{
                     new Permission(AppMConstants.Permissions.LOGIN, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_CREATE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_DELETE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_UPDATE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.DOCUMENT_ADD, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.DOCUMENT_DELETE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.DOCUMENT_EDIT, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_CREATE, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_DELETE, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_UPDATE, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.IDENTITY_APPLICATION_MANAGEMENT, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.IDENTITY_IDP_MANAGEMENT, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_ADD, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_DELETE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_EDIT, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_ENABLE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_PUBLISH, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_VIEW, UserMgtConstants.EXECUTE_ACTION)};
+                    new Permission(AppMConstants.Permissions.IDENTITY_IDP_MANAGEMENT, UserMgtConstants.EXECUTE_ACTION)};
 
             AppManagerUtil.addNewRole(AppMConstants.CREATOR_ROLE, creatorPermissions, realm);
 
             Permission[] publisherPermissions = new Permission[]{
                     new Permission(AppMConstants.Permissions.LOGIN, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_PUBLISH, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.VIEW_STATS, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_PUBLISH, UserMgtConstants.EXECUTE_ACTION)};
 
             AppManagerUtil.addNewRole(AppMConstants.PUBLISHER_ROLE,publisherPermissions, realm);
@@ -222,16 +197,6 @@ public class AppManagerComponent {
             authorizationManager.init();
             APIMgtDBUtil.initialize();
             AppMgtDataSourceProvider.initialize();
-            //Check User add listener enabled or not
-            boolean selfSignInProcessEnabled = Boolean.parseBoolean(
-                    configuration.getFirstProperty("WorkFlowExtensions.SelfSignIn.ProcessEnabled"));
-            if (selfSignInProcessEnabled) {
-                if (bundleContext != null) {
-                    bundleContext.registerService(UserStoreManagerListener.class.getName(), new UserAddListener(), null);
-                }
-            }
-
-            new AppManagerUtil().setupSelfRegistration(configuration, MultitenantConstants.SUPER_TENANT_ID);
 
             //create mobileapps directory if it does not exists
             AppManagerUtil.createMobileAppsDirectory();
@@ -475,32 +440,6 @@ public class AppManagerComponent {
             // Required parameter missing - Throw an exception and interrupt startup
             throw new AppManagementException("Required subscriber role parameter missing " +
                     "in the self sign up configuration");
-        }
-
-        boolean create = Boolean.parseBoolean(config.getFirstProperty(AppMConstants.SELF_SIGN_UP_CREATE_ROLE));
-        if (create) {
-            String[] permissions = new String[]{
-                    "/permission/admin/login",
-                    AppMConstants.Permissions.WEB_APP_SUBSCRIBE
-            };
-            try {
-                RealmService realmService = ServiceReferenceHolder.getInstance().getRealmService();
-                UserRealm realm = realmService.getBootstrapRealm();
-                UserStoreManager manager = realm.getUserStoreManager();
-                if (!manager.isExistingRole(role)) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Creating subscriber role: " + role);
-                    }
-                    Permission[] subscriberPermissions = new Permission[]{new Permission("/permission/admin/login",UserMgtConstants.EXECUTE_ACTION),
-                            new Permission(AppMConstants.Permissions.WEB_APP_SUBSCRIBE, UserMgtConstants.EXECUTE_ACTION)};
-                    String superTenantName = ServiceReferenceHolder.getInstance().getRealmService().getBootstrapRealmConfiguration().getAdminUserName();
-                    String[] userList = new String[]{superTenantName};
-                    manager.addRole(role, userList, subscriberPermissions);
-                }
-            } catch (UserStoreException e) {
-                throw new AppManagementException("Error while creating subscriber role: " + role + " - " +
-                        "Self registration might not function properly.", e);
-            }
         }
     }
 

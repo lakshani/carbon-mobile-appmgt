@@ -156,71 +156,13 @@ public final class AppMConstants {
     public static final String API_OVERVIEW_VERSION = "overview_version";
     public static final String API_OVERVIEW_CONTEXT = "overview_context";
     public static final String API_OVERVIEW_DESCRIPTION = "overview_description";
-    public static final String API_OVERVIEW_ENDPOINT_URL = "overview_webAppUrl";//ES converts names to Camel case
-    public static final String API_OVERVIEW_LOGOUT_URL = "overview_logoutUrl";
-    public static final String API_OVERVIEW_SANDBOX_URL = "overview_sandboxUrl";
-    public static final String API_OVERVIEW_WSDL = "overview_wsdl";
-    public static final String API_OVERVIEW_WADL = "overview_wadl";
     public static final String API_OVERVIEW_PROVIDER = "overview_provider";
-    public static final String API_OVERVIEW_THUMBNAIL_URL="overview_thumbnail";
-    public static final String API_OVERVIEW_STATUS="overview_status";
-    public static final String API_OVERVIEW_TIER="overview_tier";
-    public static final String API_OVERVIEW_IS_LATEST ="overview_isLatest";
-    public static final String API_URI_TEMPLATES ="uriTemplates_entry";
-    public static final String API_OVERVIEW_TEC_OWNER ="overview_technicalOwner";
-    public static final String API_OVERVIEW_TEC_OWNER_EMAIL ="overview_technicalOwnerEmail";
     public static final String API_OVERVIEW_VISIBILITY ="overview_visibility";
-    public static final String API_OVERVIEW_VISIBLE_ROLES ="overview_visibleRoles";
-    public static final String API_OVERVIEW_VISIBLE_TENANTS ="overview_visibleTenants";
     public static final String API_STATUS = "STATUS";
-    public static final String API_URI_PATTERN ="URITemplate_urlPattern";
-    public static final String API_URI_HTTP_METHOD ="URITemplate_httpVerb";
-    public static final String API_URI_AUTH_TYPE ="URITemplate_authType";
-    public static final String API_URI_ALLOW_ANONYMOUS ="URITemplate_allowAnonymous";
-    public static final String API_OVERVIEW_ENDPOINT_SECURED = "overview_endpointSecured";
-    public static final String API_OVERVIEW_ENDPOINT_USERNAME = "overview_endpointUsername";
-    public static final String API_OVERVIEW_ENDPOINT_PASSWORD = "overview_endpointPpassword";
-    public static final String API_OVERVIEW_TRANSPORTS = "overview_transports";
-    public static final String API_OVERVIEW_INSEQUENCE = "overview_inSequence";
-    public static final String API_OVERVIEW_OUTSEQUENCE = "overview_outSequence";
-    public static final String API_OVERVIEW_ALLOW_ANONYMOUS = "overview_allowAnonymous";
-    public static final String API_OVERVIEW_SKIP_GATEWAY ="overview_skipGateway";
-
-    public static final String API_OVERVIEW_RESPONSE_CACHING = "overview_responseCaching";
-    public static final String API_OVERVIEW_CACHE_TIMEOUT = "overview_cacheTimeout";
-
-    public static final String API_OVERVIEW_REDIRECT_URL = "overview_redirectUrl";
-    public static final String API_OVERVIEW_OWNER = "overview_appOwner";
-    public static final String API_OVERVIEW_TENANT = "overview_appTenant";
-    public static final String API_OVERVIEW_ADVERTISE_ONLY = "overview_advertiseOnly";
-    public static final String API_OVERVIEW_ADVERTISED_APP_UUID = "overview_advertisedAppUuid";
-    public static final String API_OVERVIEW_ENDPOINT_CONFIG = "overview_endpointConfig";
-
-    public static final String API_OVERVIEW_SUBSCRIPTION_AVAILABILITY = "overview_subscriptionAvailability";
-    public static final String API_OVERVIEW_SUBSCRIPTION_AVAILABLE_TENANTS = "overview_tenants";
 
     public static final String API_OVERVIEW_CREATED_TIME= "overview_createdtime";
 
-    //
-    public static final String API_OVERVIEW_ENABLE_SSO = "overview_enableSso";
-    public static final String API_OVERVIEW_IDP_PROVIDER_URL = "overview_idpProviderUrl";
-    public static final String API_OVERVIEW_SAML2_SSO_ISSUER = "overview_saml2SsoIssuer";
-    public static final String APP_OVERVIEW_TREAT_AS_A_SITE = "overview_treatAsASite";
-    public static final String APP_OVERVIEW_MAKE_AS_DEFAULT_VERSION = "overview_makeAsDefaultVersion";
-    public static final String APP_OVERVIEW_OLD_VERSION = "overview_oldVersion";
-
-    public static final String APP_SSO_SSO_PROVIDER = "sso_ssoProvider";
-    public static final String APP_SSO_SINGLE_SIGN_ON = "sso_singleSignOn";
-    public static final String APP_SSO_SAML2_SSO_ISSUER = "sso_saml2SsoIssuer";
-
-    public static final String APP_URITEMPLATE_POLICYGROUP_IDS = "uriTemplate_policyGroupIds";
-    public static final String APP_URITEMPLATE_URLPATTERN = "uriTemplate_urlPattern";
-    public static final String APP_URITEMPLATE_HTTPVERB = "uriTemplate_httpVerb";
-
-    public static final String APP_IMAGES_THUMBNAIL = "images_thumbnail";
     public static final String APP_IMAGES_BANNER = "images_banner";
-    public static final String APP_TRACKING_CODE = "overview_trackingCode";
-    public static final String APP_OVERVIEW_ACS_URL = "overview_acsUrl";
 
     public static final String MOBILE_APP_OVERVIEW_NAME = "overview_name";
     public static final String MOBILE_APP_OVERVIEW_PROVIDER = "overview_provider";
@@ -242,68 +184,10 @@ public final class AppMConstants {
     public static final String PROVIDER_OVERVIEW_EMAIL = "overview_email";
     public static final String PROVIDER_OVERVIEW_DESCRIPTION = "overview_description";
 
-    //tables columns for APPMGR_WEBAPP_SSO_CONFIG
-    public static final String SSO_CONFIG_FIELD_API_ID = "APP_ID";
-    public static final String SSO_CONFIG_FIELD_IDP_PROVIDER_URL = "IDP_PROVIDER_URL";
-    public static final String SSO_CONFIG_FIELD_SAML2_SSO_ISSUER = "SAML2_SSO_ISSUER";
-
-    //database columns for Subscriber
-    public static final String SUBSCRIBER_FIELD_SUBSCRIBER_ID = "SUBSCRIBER_ID";
-    public static final String SUBSCRIBER_FIELD_USER_ID = "USER_ID";
-    public static final String SUBSCRIBER_FIELD_TENANT_ID = "TENANT_ID";
-    public static final String SUBSCRIBER_FIELD_EMAIL_ADDRESS = "EMAIL_ADDRESS";
-    public static final String SUBSCRIBER_FIELD_DATE_SUBSCRIBED = "DATE_SUBSCRIBED";
-
-    //tables columns for subscription
-    public static final String SUBSCRIPTION_FIELD_SUBSCRIPTION_ID = "SUBSCRIPTION_ID";
-    public static final String SUBSCRIPTION_FIELD_TIER_ID = "TIER_ID";
-    public static final String SUBSCRIPTION_FIELD_APP_ID = "APP_ID";
-    public static final String SUBSCRIPTION_FIELD_ACCESS_TOKEN = "ACCESS_TOKEN";
-    public static final String SUBSCRIPTION_FIELD_LAST_ACCESS = "LAST_ACCESSED";
-    public static final String SUBSCRIPTION_FIELD_SUB_STATUS = "SUB_STATUS";
-    public static final String SUBSCRIPTION_FIELD_TYPE = "SUBSCRIPTION_TYPE";
-    public static final String SUBSCRIPTION_FIELD_TRUSTED_IDP = "TRUSTED_IDP";
-
-    public static final String SUBSCRIPTION_KEY_TYPE = "KEY_TYPE";
-    public static final String SUBSCRIPTION_USER_TYPE = "USER_TYPE";
-    public static final String ACCESS_TOKEN_USER_TYPE_APPLICATION = "APPLICATION";
-    public static final String USER_TYPE_END_USER = "END_USER";
-    public static final String FIELD_API_NAME = "APP_NAME";
-    public static final String FIELD_CONSUMER_KEY = "CONSUMER_KEY";
-    public static final String FIELD_API_PUBLISHER = "APP_PROVIDER";
-
     //table columns for APM_APPLICATION
     public static final String APPLICATION_ID = "APPLICATION_ID";
-    public static final String APPLICATION_NAME = "NAME";
-    public static final String APPLICATION_SUBSCRIBER_ID = "SUBSCRIBER_ID";
-    public static final String APPLICATION_TIER = "APPLICATION_TIER";
 
-    //IDENTITY OAUTH2 table
-    public static final String IDENTITY_OAUTH2_FIELD_TOKEN_STATE="TOKEN_STATE";
-    public static final String IDENTITY_OAUTH2_FIELD_AUTHORIZED_USER = "AUTHZ_USER";
-    public static final String IDENTITY_OAUTH2_FIELD_TIME_CREATED = "TIME_CREATED";
-    public static final String IDENTITY_OAUTH2_FIELD_VALIDITY_PERIOD = "VALIDITY_PERIOD";
-
-    //documentation rxt
-
-    public static final String DOC_NAME= "overview_name";
-    public static final String DOC_SUMMARY = "overview_summary";
-    public static final String DOC_TYPE = "overview_type";
-    public static final String DOC_DIR = "documentation";
-    public static final String INLINE_DOCUMENT_CONTENT_DIR = "contents";
-    public static final String NO_CONTENT_UPDATE = "no_content_update";
-    public static final String DOCUMENT_FILE_DIR = "files";
-    public static final String DOC_API_BASE_PATH="overview_apiBasePath";
-    public static final String DOC_SOURCE_URL = "overview_sourceURL";
-    public static final String DOC_FILE_PATH = "overview_filePath";
-    public static final String DOC_SOURCE_TYPE = "overview_sourceType";
-    public static final String DOC_OTHER_TYPE_NAME = "overview_otherTypeName";
-    public static final String PUBLISHED = "PUBLISHED";
     public static final String CREATED = "CREATED";
-    public static final String DEPRECATED = "DEPRECATED";
-    public static final String DOCUMENTATION_INLINE_CONTENT_TYPE = "text/plain";
-    public static final String APP_LIFE_CYCLE="AppLifeCycle";
-    public static final String APP_LC_PUBLISHED = "Published";
 
     // REST API constants
     public static final String REST_API_SCOPES_CONFIG = "RESTAPIScopes";
@@ -314,33 +198,11 @@ public final class AppMConstants {
     public static final String APPM_RESTAPI_WHITELISTED_URI_URI = APPM_RESTAPI_WHITELISTED_URI + "URI";
     public static final String APPM_RESTAPI_WHITELISTED_URI_HTTPMethods = APPM_RESTAPI_WHITELISTED_URI + "HTTPMethods";
 
-    public static class TokenStatus {
-        public static final String ACTIVE = "ACTIVE";
-        public static final String BLOCKED = "BLOCKED";
-        public static final String REVOKED = "REVOKED";
-        public static final String INACTIVE = "INACTIVE";
-    }
-    public static class SubscriptionStatus {
-        public static final String BLOCKED = "BLOCKED";
-        public static final String PROD_ONLY_BLOCKED = "PROD_ONLY_BLOCKED";
-        public static final String UNBLOCKED = "UNBLOCKED";
-        public static final String ON_HOLD = "ON_HOLD";
-        public static final String REJECTED = "REJECTED";
-    }
-
     public static final String RXT_MEDIA_TYPE = "application/vnd.wso2.registry-ext-type+xml";
-    public static final int TOP_TATE_MARGIN = 4;
 
     public static final class Permissions {
         //Login permission
         public static final String LOGIN = "/permission/admin/login";
-
-        //Web App Permissions
-        public static final String WEB_APP_CREATE = "/permission/admin/manage/webapp/create";
-        public static final String WEB_APP_PUBLISH = "/permission/admin/manage/webapp/publish";
-        public static final String WEB_APP_UPDATE = "/permission/admin/manage/webapp/update";
-        public static final String WEB_APP_SUBSCRIBE = "/permission/admin/manage/webapp/subscribe";
-        public static final String WEB_APP_DELETE = "/permission/admin/manage/webapp/delete";
 
         //Mobile App Permissions
         public static final String MOBILE_APP_CREATE = "/permission/admin/manage/mobileapp/create";
@@ -349,70 +211,21 @@ public final class AppMConstants {
         public static final String MOBILE_APP_INSTALL = "/permission/admin/manage/mobileapp/subscribe";
         public static final String MOBILE_APP_DELETE = "/permission/admin/manage/mobileapp/delete";
 
-        //Document Permissions
-        public static final String DOCUMENT_ADD = "/permission/admin/manage/document/add";
-        public static final String DOCUMENT_EDIT = "/permission/admin/manage/document/edit";
-        public static final String DOCUMENT_DELETE = "/permission/admin/manage/document/delete";
-
         //Admin Dash Board Permissions
-        public static final String APP_WORKFLOWADMIN = "/permission/admin/manage/appm/workflowadmin";
         public static final String MANAGE_TIERS = "/permission/admin/manage/appm/manage_tiers";
-        public static final String VIEW_STATS = "/permission/admin/manage/appm/view_stats";
 
         // Service provider management permissions
         public static final String IDENTITY_APPLICATION_MANAGEMENT = "/permission/admin/manage/identity/applicationmgt";
         public static final String IDENTITY_IDP_MANAGEMENT = "/permission/admin/manage/identity/idpmgt";
-
-        public static final String XACML_POLICY_ADD = "/permission/admin/configure/entitlement/policy/manage/add";
-        public static final String XACML_POLICY_DELETE = "/permission/admin/configure/entitlement/policy/manage/delete";
-        public static final String XACML_POLICY_EDIT = "/permission/admin/configure/entitlement/policy/manage/edit";
-        public static final String XACML_POLICY_ENABLE = "/permission/admin/configure/entitlement/policy/manage/enable";
-        public static final String XACML_POLICY_PUBLISH = "/permission/admin/configure/entitlement/policy/publish";
-        public static final String XACML_POLICY_VIEW = "/permission/admin/configure/entitlement/policy/view";
-
     }
 
-    public static final String SEARCH_CONTENT_NAME = "name";
     public static final String SEARCH_CONTENT_TYPE = "type";
 
-    public static final String API_GATEWAY = "APIGateway.";
-    public static final String API_GATEWAY_SERVER_URL = "ServerURL";
-    public static final String API_GATEWAY_USERNAME = "Username";
-    public static final String API_GATEWAY_PASSWORD = "Password";
-    public static final String API_GATEWAY_KEY_CACHE_ENABLED = API_GATEWAY + "EnableGatewayKeyCache";
-    public static final String API_GATEWAY_ENDPOINT = "GatewayEndpoint";
-    public static final String API_GATEWAY_CLIENT_DOMAIN_HEADER = API_GATEWAY + "ClientDomainHeader";
-    public static final String API_GATEWAY_TYPE = "GatewayType";
-    public static final String API_GATEWAY_TYPE_SYNAPSE = "Synapse";
-
     public static final String API_KEY_MANAGER = "APIKeyManager.";
-    public static final String API_KEY_MANAGER_URL = API_KEY_MANAGER + "ServerURL";
-    public static final String API_KEY_MANAGER_TOKEN_ENDPOINT_NAME = API_KEY_MANAGER + "TokenEndPointName";
-    public static final String API_KEY_MANAGER_USERNAME = API_KEY_MANAGER + "Username";
-    public static final String API_KEY_MANAGER_PASSWORD = API_KEY_MANAGER + "Password";
-    public static final String API_KEY_MANAGER_APPLICATION_ACCESS_TOKEN_VALIDATION_PERIOD = API_KEY_MANAGER + "ApplicationTokenDefaultValidityPeriod";
-    public static final String API_KEY_MANGER_THRIFT_CLIENT_PORT = API_KEY_MANAGER + "ThriftClientPort";
-    public static final String API_KEY_MANGER_THRIFT_SERVER_PORT = API_KEY_MANAGER + "ThriftServerPort";
-    public static final String API_KEY_MANGER_THRIFT_SERVER_HOST = API_KEY_MANAGER + "ThriftServerHost";
-    public static final String API_KEY_MANGER_CONNECTION_TIMEOUT = API_KEY_MANAGER + "ThriftClientConnectionTimeOut";
-    public static final String API_KEY_MANAGER_THRIFT_SERVER_HOST = API_KEY_MANAGER + "ThriftServerHost";
-    public static final String API_KEY_VALIDATOR_CLIENT_TYPE = API_KEY_MANAGER + "KeyValidatorClientType";
-    public static final String API_KEY_VALIDATOR_WS_CLIENT = "WSClient";
-    public static final String API_KEY_MANAGER_ENABLE_THRIFT_SERVER = API_KEY_MANAGER + "EnableThriftServer";
-    public static final String API_KEY_VALIDATOR_THRIFT_CLIENT = "ThriftClient";
-    public static final String API_KEY_SECURITY_CONTEXT_TTL = API_KEY_MANAGER + "SecurityContextTTL";
-    public static final String API_KEY_MANAGER_ENABLE_JWT_CACHE = API_KEY_MANAGER + "EnableJWTCache";
-    public static final String API_KEY_MANAGER_ENABLE_VALIDATION_INFO_CACHE = API_KEY_MANAGER + "EnableKeyMgtValidationInfoCache";
-    public static final String API_KEY_MANAGER_REMOVE_USERNAME_TO_JWT_FOR_APP_TOKEN = API_KEY_MANAGER + "RemoveUserNameToJWTForApplicationToken";
     public static final String API_KEY_MANAGER_ENABLE_ASSERTIONS = API_KEY_MANAGER + "EnableAssertions.";
-    public static final String API_KEY_MANAGER_ENABLE_ASSERTIONS_USERNAME = API_KEY_MANAGER_ENABLE_ASSERTIONS + "UserName";
-    public static final String API_KEY_MANAGER_ENABLE_ACCESS_TOKEN_PARTITIONING = API_KEY_MANAGER + "AccessTokenPartitioning." + "EnableAccessTokenPartitioning";
-    public static final String API_KEY_MANAGER_ACCESS_TOKEN_PARTITIONING_DOMAINS = API_KEY_MANAGER + "AccessTokenPartitioning." + "AccessTokenPartitioningDomains";
     public static final String API_KEY_MANAGER_ENCRYPT_TOKENS = API_KEY_MANAGER + "EncryptPersistedTokens";
 
     public static final String API_STORE = "AppStore.";
-    public static final String API_STORE_DISPLAY_ALL_APIS = API_STORE + "DisplayAllAPIs";
-    public static final String API_STORE_DISPLAY_MULTIPLE_VERSIONS = API_STORE + "DisplayMultipleVersions";
 	public static final String API_STORE_DISPLAY_COMMENTS = API_STORE + "DisplayComments";
 	public static final String API_STORE_DISPLAY_RATINGS = API_STORE + "DisplayRatings";
     public static final String API_STORE_TAG_CACHE_DURATION = API_STORE + "TagCacheDuration";
@@ -465,7 +278,6 @@ public final class AppMConstants {
     public static final String SSO_CONFIGURATION_ENABLE_ASSERTION_SIGNING = SSO_CONFIGURATION + "EnableAssertionSigning";
     public static final String SSO_CONFIGURATION_VALIDATE_ASSERTION_EXPIRY = SSO_CONFIGURATION + "ValidateAssertionExpiry";
     public static final String SSO_CONFIGURATORS = SSO_CONFIGURATION + "Configurators.";
-    public static final String SSO_CONFIGURATION_CREATE_SP_FOR_SKIP_GATEWAY_APPS = SSO_CONFIGURATION + "CreateServiceProviderForSkipGatewayApps";
     public static final String SSO_CONFIGURATOR = SSO_CONFIGURATORS + "Configurator.";
     public static final String SSO_CONFIGURATOR_NAME = SSO_CONFIGURATOR + "name";
     public static final String SSO_CONFIGURATOR_VERSION = SSO_CONFIGURATOR + "version";
@@ -478,10 +290,6 @@ public final class AppMConstants {
     public static final String SSO_CONFIGURATION_IDP_SERVICE_PWD = SSO_CONFIGURATION + "Password";
 
     public static final String APP_CONSUMER_AUTH_CONFIG = "AppConsumerAuthConfiguration.";
-    public static final String GATEWAY_SESSION_TIMEOUT = APP_CONSUMER_AUTH_CONFIG + "SessionTimeout";
-    public static final String API_CONSUMER_AUTHENTICATION_ADD_SAML_RESPONSE_HEADER_TO_OUT_MSG = APP_CONSUMER_AUTH_CONFIG + "AddSAMLResponseHeaderToOutMessage";
-    public static final String API_CONSUMER_AUTHENTICATION_ADD_CLAIMS_SELECTIVELY = APP_CONSUMER_AUTH_CONFIG + "AddClaimsSelectively";
-    public static final String TOKEN_GENERATOR_IMPL = APP_CONSUMER_AUTH_CONFIG + "TokenGeneratorImpl";
     public static final String ENABLE_JWT_GENERATION = APP_CONSUMER_AUTH_CONFIG + "EnableTokenGeneration";
     public static final String SIGNATURE_ALGORITHM = APP_CONSUMER_AUTH_CONFIG + "SignatureAlgorithm";
 
@@ -591,8 +399,6 @@ public final class AppMConstants {
     public static final String RESOURCE_CACHE_NAME = "resourceCache";
     public static final String KEY_CACHE_NAME = "keyCache";
     public static final String JWT_CACHE_NAME = "jwtCache";
-    public static final String AUTHENTICATED_IDP_CACHE_MANAGER = "APPMGT.GATEWAY.AUTHENTICATED_IDP_CACHE_MANAGER";
-    public static final String AUTHENTICATED_IDP_CACHE = "APPMGT.GATEWAY.authenticatedIDPCache";
     public static final String API_CONTEXT_CACHE = "apiContextCache";
     public static final int API_CONTEXT_CACHE_EXPIRY_TIME_IN_DAYS = 3650 ;
     public static final String SAML2_SESSION_INDEX_CACHE = "saml2SessionIndexCache";
@@ -611,17 +417,6 @@ public final class AppMConstants {
     public static final String APP_CONTEXT_VERSION_CACHE_MANAGER = "APP_CONTEXT_VERSION_CACHE_MANAGER";
     public static final String APP_CONTEXT_VERSION_CONFIG_CACHE = "APP_CONTEXT_VERSION_CONFIG_CACHE";
     public static final String APP_CONTEXT_VERSION_CACHE_KEY = "APP_CONTEXT_VERSION_CACHE_KEY";
-
-    // Gateway caching constants
-    public static final String GATEWAY_CACHE_MANAGER = "APPMGT.GATEWAY";
-    public static final String GATEWAY_SESSION_CACHE = "appm.sessionCache";
-    public static final String GATEWAY_SESSION_INDEX_MAPPING_CACHE = "appm.sessionIndexMappingCache";
-    public static final String USAGE_CACHE_MANAGER = "APPMGT.USAGE";
-    public static final String USAGE_CACHE = "appm.usageCache";
-
-
-    public static final String GATEWAY_DEFAULT_VERSION_INDICATION_HEADER_NAME = "WSO2_APPM_INVOKED_WITHOUT_VERSION";
-
 
     public static final String SAML2_COOKIE = "appmanager_sso";
     public static final String SAML_SSO_TOKENID = "samlssoTokenId";
@@ -688,15 +483,6 @@ public final class AppMConstants {
     }
 
     public static final String EXTENSION_HANDLER_POSITION = "ExtensionHandlerPosition";
-
-    public static final String GATEWAY_ENV_TYPE_HYBRID = "hybrid";
-    public static final String GATEWAY_ENV_TYPE_PRODUCTION = "production";
-    public static final String GATEWAY_ENV_TYPE_SANDBOX = "sandbox";
-    public static final String GATEWAY_ACS_RELATIVE_URL = "acs";
-    public static final String MESSAGE_CONTEXT_PROPERTY_GATEWAY_SKIP_SECURITY = "appm.gateway.skipSecurity";
-    public static final String MESSAGE_CONTEXT_PROPERTY_MATCHED_URI_TEMPLATE = "appm.gateway.matchedURITemplate";
-    public static final String MESSAGE_CONTEXT_PROPERTY_REDIRECTION_FRIENDLY_FULL_REQUEST_PATH = "appm.gateway.redirectionFriendlyFullRequestPath";
-    public static final String MESSAGE_CONTEXT_PROPERTY_APP_ID = "appm.gateway.appID";
 
     public static final String API_RESPONSE_CACHE_ENABLED = "Enabled";
     public static final String API_RESPONSE_CACHE_DISABLED = "Disabled";

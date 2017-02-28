@@ -52,7 +52,6 @@ import org.wso2.carbon.appmgt.api.model.SSOProvider;
 import org.wso2.carbon.appmgt.api.model.Tier;
 import org.wso2.carbon.appmgt.impl.AppMConstants;
 import org.wso2.carbon.appmgt.impl.AppManagerConfiguration;
-import org.wso2.carbon.appmgt.impl.dto.Environment;
 import org.wso2.carbon.appmgt.impl.dto.UserRegistrationConfigDTO;
 import org.wso2.carbon.appmgt.impl.idp.sso.model.SSOEnvironment;
 import org.wso2.carbon.appmgt.impl.internal.AppManagerComponent;
@@ -372,31 +371,6 @@ public final class AppManagerUtil {
 	}
 
 	/**
-	 * Utility method to generate the path for a file.
-	 * 
-	 * @param identifier
-	 *            APIIdentifier
-	 * @return Generated path.
-	 * @fileName File name.
-	 */
-	public static String getDocumentationFilePath(APIIdentifier identifier, String fileName) {
-		String contentPath =
-		                     AppManagerUtil.getAPIDocPath(identifier) + AppMConstants.DOCUMENT_FILE_DIR +
-		                             RegistryConstants.PATH_SEPARATOR + fileName;
-		return contentPath;
-	}
-
-	public static String getAPIDefinitionFilePath(String apiName, String apiVersion) {
-		String resourcePath =
-		                      AppMConstants.API_DOC_LOCATION + RegistryConstants.PATH_SEPARATOR +
-		                              apiName + "-" + apiVersion +
-		                              RegistryConstants.PATH_SEPARATOR +
-		                              AppMConstants.API_DOC_RESOURCE_NAME;
-
-		return resourcePath;
-	}
-
-	/**
 	 * Utility method to get api path from APIIdentifier
 	 * 
 	 * @param identifier
@@ -467,34 +441,6 @@ public final class AppManagerUtil {
 		       identifier.getProviderName();
 	}
 
-	/**
-	 * Utility method to get documentation path
-	 * 
-	 * @param apiId
-	 *            APIIdentifier
-	 * @return Doc path
-	 */
-	public static String getAPIDocPath(APIIdentifier apiId) {
-		return AppMConstants.API_LOCATION + RegistryConstants.PATH_SEPARATOR +
-		       apiId.getProviderName() + RegistryConstants.PATH_SEPARATOR + apiId.getApiName() +
-		       RegistryConstants.PATH_SEPARATOR + apiId.getVersion() +
-		       RegistryConstants.PATH_SEPARATOR + AppMConstants.DOC_DIR +
-		       RegistryConstants.PATH_SEPARATOR;
-	}
-
-	/**
-	 * Utility method to get documentation content file path
-	 * 
-	 * @param apiId
-	 *            APIIdentifier
-	 * @param documentationName
-	 *            String
-	 * @return Doc content path
-	 */
-	public static String getAPIDocContentPath(APIIdentifier apiId, String documentationName) {
-		return getAPIDocPath(apiId) + AppMConstants.INLINE_DOCUMENT_CONTENT_DIR +
-		       RegistryConstants.PATH_SEPARATOR + documentationName;
-	}
 
 	/**
 	 * this method used to initialized the ArtifactManager
@@ -523,120 +469,6 @@ public final class AppManagerUtil {
 			throw new AppManagementException(msg, e);
 		}
 		return artifactManager;
-	}
-
-	/**
-	 * Read the GateWay Endpoint from the APIConfiguration. If multiple Gateway
-	 * environments defined,
-	 * take only the production node's Endpoint.
-	 * Else, pick what is available as the gateway node.
-	 * 
-	 * @return {@link String} - Gateway URL
-	 */
-
-	public static String getGatewayendpoint() {
-
-		String gatewayURLs = getGatewayendpoints();
-		String gatewayURL = extractHTTPSEndpoint(gatewayURLs);
-
-		return gatewayURL;
-	}
-
-	/**
-	 * Read the GateWay Endpoints (both http and https) from the
-	 * APIConfiguration. If multiple Gateway
-	 * environments defined,
-	 * take only the production node's Endpoint.
-	 * Else, pick what is available as the gateway node.
-	 * 
-	 * @return {@link String} - Gateway URL
-	 */
-	public static String getGatewayendpoints() {
-
-		String gatewayURLs = null;
-		List<Environment> gatewayEnvironments =
-		                                        ServiceReferenceHolder.getInstance()
-		                                                              .getAPIManagerConfigurationService()
-		                                                              .getAPIManagerConfiguration()
-		                                                              .getApiGatewayEnvironments();
-		if (gatewayEnvironments.size() > 1) {
-			for (int i = 0; i < gatewayEnvironments.size(); i++) {
-				if ("production".equals(gatewayEnvironments.get(i).getType())) {
-					// This might have http,https
-					gatewayURLs = gatewayEnvironments.get(i).getApiGatewayEndpoint();
-					break;
-				}
-			}
-		} else {
-			gatewayURLs = gatewayEnvironments.get(0).getApiGatewayEndpoint();
-		}
-
-		return gatewayURLs;
-	}
-
-    /**
-     *
-     * Returns the HTTP URL of the App Gateway
-     *
-     * @return
-     */
-    public static String getGatewayHTTPURL(){
-
-        List<Environment> gatewayEnvironments = ServiceReferenceHolder.getInstance().getAPIManagerConfigurationService()
-                                                    .getAPIManagerConfiguration()
-                                                    .getApiGatewayEnvironments();
-
-        // More than one gateway is not supported. So only deal with the first gateway.
-        String gatewayURLs = gatewayEnvironments.get(0).getApiGatewayEndpoint();
-        String httpGatewayURL = gatewayURLs.split(",")[0];
-
-        return httpGatewayURL;
-    }
-
-    /**
-     *
-     * Returns the HTTPS URL of the App Gateway
-     *
-     * @return
-     */
-    public static String getGatewayHTTPSURL(){
-
-        List<Environment> gatewayEnvironments = ServiceReferenceHolder.getInstance().getAPIManagerConfigurationService()
-                .getAPIManagerConfiguration()
-                .getApiGatewayEnvironments();
-
-        // More than one gateway is not supported. So only deal with the first gateway.
-        String gatewayURLs = gatewayEnvironments.get(0).getApiGatewayEndpoint();
-        String httpsGatewayURL = gatewayURLs.split(",")[1];
-
-        return httpsGatewayURL;
-    }
-
-	/**
-	 * Gateway endpoint has HTTP and HTTPS endpoints.
-	 * If both are defined pick HTTPS only. Else, pick whatever available.
-	 * eg: <GatewayEndpoint>http://${carbon.local.ip}:${http.nio.port},
-	 * https://${carbon.local.ip}:${https.nio.port}</GatewayEndpoint>
-	 * 
-	 * @param gatewayURLs
-	 *            - String contains comma separated gateway urls.
-	 * @return {@link String} - Returns HTTPS gateway endpoint
-	 */
-
-	private static String extractHTTPSEndpoint(String gatewayURLs) {
-		String gatewayURL = null;
-		String[] gatewayURLsArray = gatewayURLs.split(",");
-		if (gatewayURLsArray.length > 1) {
-			for (int j = 0; j < gatewayURLsArray.length; j++) {
-				if (gatewayURLsArray[j].toString().startsWith("https")) {
-					gatewayURL = gatewayURLsArray[j].toString();
-					break;
-				}
-			}
-		} else {
-			gatewayURL = gatewayURLs;
-		}
-		return gatewayURL;
 	}
 
 	/**
@@ -1460,10 +1292,6 @@ public final class AppManagerUtil {
 	public static void createSubscriberRole(String roleName, int tenantId, Permission[] subscriberPermissions)
 			throws AppManagementException {
 
-		String[] permissions = new String[]{
-				"/permission/admin/login",
-				AppMConstants.Permissions.WEB_APP_SUBSCRIBE
-		};
 		try {
 			RealmService realmService = ServiceReferenceHolder.getInstance().getRealmService();
 			UserRealm realm;
@@ -1712,71 +1540,6 @@ public final class AppManagerUtil {
 		return username;
 	}
 
-	public void setupSelfRegistration(AppManagerConfiguration config, int tenantId)
-	                                                                               throws
-                                                                                   AppManagementException {
-		boolean enabled =
-		                  Boolean.parseBoolean(config.getFirstProperty(AppMConstants.SELF_SIGN_UP_ENABLED));
-		if (!enabled) {
-			return;
-		}
-
-		String role = config.getFirstProperty(AppMConstants.SELF_SIGN_UP_ROLE);
-		if (role == null) {
-			// Required parameter missing - Throw an exception and interrupt
-			// startup
-			throw new AppManagementException("Required subscriber role parameter missing "
-			                                 + "in the self sign up configuration");
-		}
-
-		boolean create =
-		                 Boolean.parseBoolean(config.getFirstProperty(AppMConstants.SELF_SIGN_UP_CREATE_ROLE));
-		if (create) {
-			String[] permissions =
-			                       new String[] { "/permission/admin/login",
-			                                     AppMConstants.Permissions.WEB_APP_SUBSCRIBE};
-			try {
-				RealmService realmService = ServiceReferenceHolder.getInstance().getRealmService();
-				UserRealm realm;
-				org.wso2.carbon.user.api.UserRealm tenantRealm;
-				UserStoreManager manager;
-
-				if (tenantId < 0) {
-					realm = realmService.getBootstrapRealm();
-					manager = realm.getUserStoreManager();
-				} else {
-					tenantRealm = realmService.getTenantUserRealm(tenantId);
-					manager = tenantRealm.getUserStoreManager();
-				}
-				if (!manager.isExistingRole(role)) {
-					if (log.isDebugEnabled()) {
-						log.debug("Creating subscriber role: " + role);
-					}
-					Permission[] subscriberPermissions =
-					                                     new Permission[] {
-					                                                       new Permission(
-					                                                                      "/permission/admin/login",
-					                                                                      UserMgtConstants.EXECUTE_ACTION),
-					                                                       new Permission(
-					                                                                      AppMConstants.Permissions.WEB_APP_SUBSCRIBE,
-					                                                                      UserMgtConstants.EXECUTE_ACTION) };
-					String tenantAdminName =
-					                         ServiceReferenceHolder.getInstance().getRealmService()
-					                                               .getTenantUserRealm(tenantId)
-					                                               .getRealmConfiguration()
-					                                               .getAdminUserName();
-					String[] userList = new String[] { tenantAdminName };
-					manager.addRole(role, userList, subscriberPermissions);
-				}
-			} catch (UserStoreException e) {
-				throw new AppManagementException("Error while creating subscriber role: " + role +
-				                                 " - " +
-				                                 "Self registration might not function properly.",
-				                                 e);
-			}
-		}
-	}
-
 	public static String removeAnySymbolFromUriTempate(String uriTemplate) {
 		if (uriTemplate != null) {
 			int anySymbolIndex = uriTemplate.indexOf("/*");
@@ -1902,21 +1665,6 @@ public final class AppManagerUtil {
 		                                                       .getAPIManagerConfiguration();
 		return config.getExternalAPIStores().size() != 0;
 
-	}
-
-	public static boolean isAPIGatewayKeyCacheEnabled() {
-		try {
-			AppManagerConfiguration config =
-			                                 ServiceReferenceHolder.getInstance()
-			                                                       .getAPIManagerConfigurationService()
-			                                                       .getAPIManagerConfiguration();
-			String serviceURL = config.getFirstProperty(AppMConstants.API_GATEWAY_KEY_CACHE_ENABLED);
-			return Boolean.parseBoolean(serviceURL);
-		} catch (Exception e) {
-			log.error("Did not found valid WebApp Validation Information cache configuration. Use default configuration" +
-			          e);
-		}
-		return true;
 	}
 
 	public static Cache getAPIContextCache() {

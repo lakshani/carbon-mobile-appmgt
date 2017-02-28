@@ -42,7 +42,6 @@ import org.wso2.carbon.appmgt.hostobjects.internal.ServiceReferenceHolder;
 import org.wso2.carbon.appmgt.impl.APIManagerFactory;
 import org.wso2.carbon.appmgt.impl.AppMConstants;
 import org.wso2.carbon.appmgt.impl.AppManagerConfiguration;
-import org.wso2.carbon.appmgt.impl.UserAwareAPIConsumer;
 import org.wso2.carbon.appmgt.impl.dto.UserRegistrationConfigDTO;
 import org.wso2.carbon.appmgt.impl.idp.TrustedIdP;
 import org.wso2.carbon.appmgt.impl.idp.WebAppIdPFactory;
@@ -56,7 +55,6 @@ import org.wso2.carbon.identity.oauth.config.OAuthServerConfiguration;
 import org.wso2.carbon.identity.user.registration.stub.UserRegistrationAdminServiceStub;
 import org.wso2.carbon.identity.user.registration.stub.dto.UserFieldDTO;
 import org.wso2.carbon.registry.core.ActionConstants;
-import org.wso2.carbon.registry.core.RegistryConstants;
 import org.wso2.carbon.user.core.UserCoreConstants;
 import org.wso2.carbon.user.core.UserRealm;
 import org.wso2.carbon.user.core.UserStoreException;
@@ -283,7 +281,7 @@ public class APIStoreHostObject extends ScriptableObject {
             }
 
             boolean authorized =
-                    AppManagerUtil.checkPermissionQuietly(usernameWithDomain, AppMConstants.Permissions.WEB_APP_SUBSCRIBE);
+                    AppManagerUtil.checkPermissionQuietly(usernameWithDomain, AppMConstants.Permissions.MOBILE_APP_INSTALL);
 
 
             if (authorized) {
@@ -376,37 +374,6 @@ public class APIStoreHostObject extends ScriptableObject {
         }
     }
 
-    public static String jsFunction_getSwaggerDiscoveryUrl(Context cx,
-                                                           Scriptable thisObj, Object[] args,
-                                                           Function funObj)
-            throws AppManagementException {
-        String apiName;
-        String version;
-        String providerName;
-        
-        if (args != null && args.length != 0 ) {
-
-            apiName = (String) args[0];
-            version = (String) args[1];
-            providerName = (String) args[2];
-            
-            String apiDefinitionFilePath = AppManagerUtil.getAPIDefinitionFilePath(apiName, version);
-            apiDefinitionFilePath = RegistryConstants.PATH_SEPARATOR + "registry"
-            		+ RegistryConstants.PATH_SEPARATOR + "resource"
-            		+ RegistryConstants.PATH_SEPARATOR + "_system"
-            		+ RegistryConstants.PATH_SEPARATOR + "governance"
-            		+ apiDefinitionFilePath;
-            
-            apiDefinitionFilePath = AppManagerUtil.prependTenantPrefix(apiDefinitionFilePath, providerName);
-            
-            return AppManagerUtil.prependWebContextRoot(apiDefinitionFilePath);
-            
-        } else {
-            handleException("Invalid input parameters.");
-            return null;
-        }
-    }
-
     private static APIKey getKeyOfType(List<APIKey> apiKeys, String keyType) {
         for (APIKey key : apiKeys) {
             if (keyType.equals(key.getType())) {
@@ -442,22 +409,6 @@ public class APIStoreHostObject extends ScriptableObject {
         }
         return true;
 
-    }
-
-    public static boolean jsFunction_hasSubscribePermission(Context cx, Scriptable thisObj,
-                                                            Object[] args,
-                                                            Function funObj)
-            throws ScriptException {
-        APIConsumer consumer = getAPIConsumer(thisObj);
-        if (consumer instanceof UserAwareAPIConsumer) {
-            try {
-                ((UserAwareAPIConsumer) consumer).checkSubscribePermission();
-                return true;
-            } catch (AppManagementException e) {
-                return false;
-            }
-        }
-        return false;
     }
 
     /**
@@ -642,7 +593,7 @@ public class APIStoreHostObject extends ScriptableObject {
             CarbonUtils.setBasicAccessSecurityHeaders(adminUsername, adminPassword,
                     true, userAdminStub._getServiceClient());
             try {
-                    valid = AppManagerUtil.checkPermissionQuietly(userName, AppMConstants.Permissions.WEB_APP_SUBSCRIBE);
+                    valid = AppManagerUtil.checkPermissionQuietly(userName, AppMConstants.Permissions.MOBILE_APP_INSTALL);
                     if(valid){
                         row.put("error", row, false);
                         return row;
@@ -781,7 +732,7 @@ public class APIStoreHostObject extends ScriptableObject {
             throws ScriptException, AppManagementException {
         if (args!=null && isStringArray(args)) {
             String username = args[0].toString();
-            return AppManagerUtil.checkPermissionQuietly(username, AppMConstants.Permissions.WEB_APP_SUBSCRIBE);
+            return AppManagerUtil.checkPermissionQuietly(username, AppMConstants.Permissions.MOBILE_APP_INSTALL);
         } else {
             handleException("Invalid types of input parameters.");
         }

@@ -82,30 +82,16 @@ public class TenantCreatePublisherObserver extends AbstractAxis2ConfigurationCon
 
             Permission[] creatorPermissions = new Permission[]{
                     new Permission(AppMConstants.Permissions.LOGIN, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_CREATE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_DELETE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_UPDATE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.DOCUMENT_ADD, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.DOCUMENT_DELETE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.DOCUMENT_EDIT, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_CREATE, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_DELETE, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_UPDATE, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.IDENTITY_APPLICATION_MANAGEMENT, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.IDENTITY_IDP_MANAGEMENT, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_ADD, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_DELETE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_EDIT, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_ENABLE, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_PUBLISH, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.XACML_POLICY_VIEW, UserMgtConstants.EXECUTE_ACTION)};
+                    new Permission(AppMConstants.Permissions.IDENTITY_IDP_MANAGEMENT, UserMgtConstants.EXECUTE_ACTION)};
 
             AppManagerUtil.addNewRole(AppMConstants.CREATOR_ROLE, creatorPermissions, realm);
 
             Permission[] publisherPermissions = new Permission[]{
                     new Permission(AppMConstants.Permissions.LOGIN, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.WEB_APP_PUBLISH, UserMgtConstants.EXECUTE_ACTION),
-                    new Permission(AppMConstants.Permissions.VIEW_STATS, UserMgtConstants.EXECUTE_ACTION),
                     new Permission(AppMConstants.Permissions.MOBILE_APP_PUBLISH, UserMgtConstants.EXECUTE_ACTION)};
 
             AppManagerUtil.addNewRole(AppMConstants.PUBLISHER_ROLE,publisherPermissions, realm);

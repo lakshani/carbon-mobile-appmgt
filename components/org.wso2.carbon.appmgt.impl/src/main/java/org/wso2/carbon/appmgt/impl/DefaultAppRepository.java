@@ -44,7 +44,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * The default implementation of DefaultAppRepository which uses RDBMS and Carbon registry for persistence.
@@ -400,12 +399,6 @@ public class DefaultAppRepository implements AppRepository {
             mobileApp.setUUID(artifactId);
             changeLifeCycleStatus(AppMConstants.MOBILE_ASSET_TYPE, artifactId, APPLifecycleActions.CREATE.getStatus());
             String artifactPath = GovernanceUtils.getArtifactPath(registry, artifact.getId());
-            Set<String> tagSet = mobileApp.getTags();
-            if (tagSet != null) {
-                for (String tag : tagSet) {
-                    registry.applyTag(artifactPath, tag);
-                }
-            }
 
             if (mobileApp.getAppVisibility() != null) {
                 AppManagerUtil.setResourcePermissions(mobileApp.getAppProvider(),
@@ -447,14 +440,10 @@ public class DefaultAppRepository implements AppRepository {
             if (AppMConstants.LifecycleActions.SUBMIT_FOR_REVIEW.equals(lifecycleAction)) {
                 if (AppMConstants.MOBILE_ASSET_TYPE.equals(appType)) {
                     requiredPermission = AppMConstants.Permissions.MOBILE_APP_CREATE;
-                } else if (AppMConstants.WEBAPP_ASSET_TYPE.equals(appType)) {
-                    requiredPermission = AppMConstants.Permissions.WEB_APP_CREATE;
                 }
             } else {
                 if (AppMConstants.MOBILE_ASSET_TYPE.equals(appType)) {
                     requiredPermission = AppMConstants.Permissions.MOBILE_APP_PUBLISH;
-                } else if (AppMConstants.WEBAPP_ASSET_TYPE.equals(appType)) {
-                    requiredPermission = AppMConstants.Permissions.WEB_APP_PUBLISH;
                 }
             }
 

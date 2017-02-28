@@ -24,7 +24,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.appmgt.api.AppManagementException;
 import org.wso2.carbon.appmgt.api.model.AppStore;
-import org.wso2.carbon.appmgt.impl.dto.Environment;
 import org.wso2.carbon.appmgt.impl.idp.sso.SSOConfiguratorConstants;
 import org.wso2.carbon.appmgt.impl.idp.sso.model.SSOEnvironment;
 import org.wso2.securevault.SecretResolver;
@@ -69,7 +68,6 @@ public class AppManagerConfiguration {
 
     private boolean initialized;
 
-    private List<Environment> apiGatewayEnvironments = new ArrayList<Environment>();
     private Set<AppStore> externalAPIStores = new HashSet<AppStore>();
     private List<SSOEnvironment> ssoEnvironments = new ArrayList<SSOEnvironment>();
 
@@ -169,41 +167,7 @@ public class AppManagerConfiguration {
                     value = secretResolver.resolve(key);
                 }
                 addToConfiguration(key, replaceSystemProperty(value));
-            }
-            else if("Environments".equals(localName)){
-                Iterator environmentIterator = element.getChildrenWithLocalName("Environment");
-                apiGatewayEnvironments = new ArrayList<Environment>();
-
-                while(environmentIterator.hasNext()){
-                    Environment environment = new Environment();
-                    OMElement environmentElem = (OMElement)environmentIterator.next();
-                    environment.setType(environmentElem.getAttributeValue(new QName("type")));
-                    environment.setName(replaceSystemProperty(
-                                        environmentElem.getFirstChildWithName(new QName("Name")).getText()));
-                    environment.setServerURL(replaceSystemProperty(
-                                        environmentElem.getFirstChildWithName(new QName(
-                                                AppMConstants.API_GATEWAY_SERVER_URL)).getText()));
-                    environment.setUserName(replaceSystemProperty(
-
-                                        environmentElem.getFirstChildWithName(new QName(
-                                                AppMConstants.API_GATEWAY_USERNAME)).getText()));
-
-                    String key = AppMConstants.API_GATEWAY + AppMConstants.API_GATEWAY_PASSWORD;
-                    String value;
-                    if (secretResolver.isInitialized() && secretResolver.isTokenProtected(key)) {
-                        value = secretResolver.resolve(key);
-                    }
-                    else{
-                        value = environmentElem.getFirstChildWithName(new QName(
-                                                            AppMConstants.API_GATEWAY_PASSWORD)).getText();
-                    }
-                    environment.setPassword(replaceSystemProperty(value));
-                    environment.setApiGatewayEndpoint(replaceSystemProperty(
-                            environmentElem.getFirstChildWithName(new QName(
-                                                            AppMConstants.API_GATEWAY_ENDPOINT)).getText()));
-                    apiGatewayEnvironments.add(environment);
-                }
-            }else if(AppMConstants.EXTERNAL_APP_STORES.equals(localName)){  //Initialize 'externalAPIStores' config elements
+            } else if(AppMConstants.EXTERNAL_APP_STORES.equals(localName)){  //Initialize 'externalAPIStores' config elements
                 Iterator apistoreIterator = element.getChildrenWithLocalName("ExternalAPIStore");
                 externalAPIStores = new HashSet<AppStore>();
                 while(apistoreIterator.hasNext()){
@@ -393,10 +357,6 @@ public class AppManagerConfiguration {
             }
         }
         return text;
-    }
-
-    public List<Environment> getApiGatewayEnvironments() {
-        return apiGatewayEnvironments;
     }
 
     public Set<AppStore> getExternalAPIStores() {  //Return set of APIStores
