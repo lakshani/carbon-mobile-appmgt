@@ -321,7 +321,7 @@ public class APPMappingUtil {
         dto.setVersion(mobileApp.getVersion());
         dto.setDescription(mobileApp.getDescription());
         dto.setRating(BigDecimal.valueOf(mobileApp.getRating()));
-        
+
         dto.setType(mobileApp.getType());
         dto.setMarketType(mobileApp.getMarketType());
         dto.setBundleversion(mobileApp.getBundleVersion());

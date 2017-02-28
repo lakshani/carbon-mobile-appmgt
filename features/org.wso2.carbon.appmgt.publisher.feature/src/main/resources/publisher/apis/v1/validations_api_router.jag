@@ -129,7 +129,6 @@ require('/modules/publisher.js').exec(function (ctx) {
         var publisher = require('/modules/publisher.js').publisher(request, session);
         var rxtManager = publisher.rxtManager;
         var modelManager = publisher.modelManager;
-        var tagModule = require('/modules/tag.management.js').tagModule();
         routeManager.handle(request, response);
     }
 
